@@ -56,6 +56,56 @@ $Global:MutualExclusionGroups = @(
 # SECTION 1: COLOR & FORMATTING
 # ===========================================================================================
 
+function Show-SplashScreen {
+    Clear-Host
+    
+    # Shadow text (displayed first, offset)
+    Write-Host ""
+    Write-Host "     ▒▒   ▒▒  ▒▒▒▒▒  ▒▒▒    ▒▒▒ ▒▒▒▒▒▒▒▒ ▒▒  ▒  ▒▒ ▒▒▒▒▒▒▒  ▒▒▒▒▒  ▒▒   ▒▒" -ForegroundColor DarkCyan
+    Write-Host "     ▒▒   ▒▒ ▒▒   ▒▒ ▒▒▒▒  ▒▒▒▒    ▒▒    ▒▒ ▒▒▒ ▒▒ ▒▒      ▒▒   ▒▒ ▒▒  ▒▒" -ForegroundColor DarkCyan
+    Write-Host "     ▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒ ▒▒ ▒▒▒▒ ▒▒    ▒▒    ▒▒▒ ▒ ▒▒▒ ▒▒▒▒▒   ▒▒▒▒▒▒▒ ▒▒▒▒▒" -ForegroundColor DarkCyan
+    Write-Host "     ▒▒   ▒▒ ▒▒   ▒▒ ▒▒  ▒▒  ▒▒    ▒▒     ▒▒▒▒▒▒▒  ▒▒▒▒▒▒▒ ▒▒   ▒▒ ▒▒   ▒▒" -ForegroundColor DarkCyan
+    
+    # Move cursor up to overlay main text
+    Write-Host "`e[4A" -NoNewline
+    
+    # Main text (overlays shadow)
+    Write-Host "    ██   ██  █████  ███    ███ ████████ ██  █  ██ ███████  █████  ██   ██" -ForegroundColor Cyan
+    Write-Host "    ██   ██ ██   ██ ████  ████    ██    ██ ███ ██ ██      ██   ██ ██  ██" -ForegroundColor Cyan
+    Write-Host "    ███████ ███████ ██ ████ ██    ██    ███ █ ███ █████   ███████ █████" -ForegroundColor Cyan
+    Write-Host "    ██   ██ ██   ██ ██  ██  ██    ██     ███████  ███████ ██   ██ ██   ██" -ForegroundColor Cyan
+    
+    $splash = @"
+
+                 ╔══════════════════════════════════════════╗
+                 ║       W I N D O W S   O P T I M I Z E R  ║
+                 ╚══════════════════════════════════════════╝
+
+                                   ┌───┬───┐       ___
+                                   │ ▀ │ ▀ │   .--'   '--.    
+                                   ├───┼───┤  / ▓▓▓   ▓▓▓ \    
+                                   │ ▄ │ ▄ │ |  ▓▓▓   ▓▓▓  |  
+                                   └───┴───┘  \    ___    /   
+                                        ║      '._(O_O)_.'    
+                                    ╔═══╩═══╗ __/`---'\__     
+                                    ║ ═══════<   /   \   >   
+                                    ╚═══╦═══╝\__/     \__/    
+                             ══════════╦╩╦══════════════════╦╦══════════
+                                      (●●)                 (●●)        
+                              
+                              🐷  "Optimizing Windows... PIG STYLE!"  🥓
+"@
+    
+    Write-Host $splash -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "                             ╔════════════════════════════════════════════╗" -ForegroundColor Magenta
+    Write-Host "                             ║       " -ForegroundColor Magenta -NoNewline
+    Write-Host "Press ENTER to continue..." -ForegroundColor Yellow -NoNewline
+    Write-Host "            ║" -ForegroundColor Magenta
+    Write-Host "                             ╚════════════════════════════════════════════╝" -ForegroundColor Magenta
+    $null = Read-Host
+}
+
 function Write-Color {
     param(
         [ValidateSet('Success', 'Error', 'Warning', 'Info', 'Header', 'HighRisk')]
@@ -1175,6 +1225,9 @@ function Show-FeatureSelection {
 # ===========================================================================================
 
 function Main {
+    # Show splash screen
+    Show-SplashScreen
+    
     # Validation
     if (-not (Test-AdminRights)) {
         Write-Color 'Error' "Administrator privileges required"
