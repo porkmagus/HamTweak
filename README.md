@@ -1,2 +1,0 @@
-# HamTweak
-HamTweak Windows Optimizer
